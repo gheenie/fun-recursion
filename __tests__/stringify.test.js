@@ -1,4 +1,4 @@
-const stringify = require('../katas/stringify');
+const stringify = require('../katas/12-stringify');
 
 describe('stringify()', () => {
     test('empty object', () => {
@@ -10,7 +10,7 @@ describe('stringify()', () => {
         expect(output).toBe(expected);
     });
 
-    test('one level object; has whitespaces', () => {
+    test('one level object', () => {
         const input = { x: 5, y: 6 };
 
         const output = stringify(input);
@@ -19,7 +19,7 @@ describe('stringify()', () => {
         expect(output).toBe(expected);
     });
 
-    test('deep level object; has whitespaces', () => {
+    test('nested objects', () => {
         const input = { x: 5, y: { a: 1, b: 2 } };
 
         const output = stringify(input);
@@ -37,7 +37,7 @@ describe('stringify()', () => {
         expect(output).toBe(expected);
     });
 
-    test('one level array; different data types; has whitespaces', () => {
+    test('nested array; different data types', () => {
         const input = [new Number(3), new String('false'), new Boolean(false)];
 
         const output = stringify(input);
