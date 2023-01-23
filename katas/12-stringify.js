@@ -1,18 +1,18 @@
 function stringify(arg) {
-    if (typeof arg === 'object' && !Array.isArray(arg)) {
-        if (Object.keys(arg).length === 0) return '{}';
+    if ( typeof arg === 'object' && !Array.isArray(arg) ) {
+        if ( Object.keys(arg).length === 0 ) return '{}';
 
         let builtString = '{';
 
-        for (const key in arg) {
-            if (typeof arg[key] === 'object') {
-                builtString += `"${key}":`
-                builtString += stringify(arg[key]) + '}';
+        for ( const [key, value] of Object.entries(arg) ) {
+            if (typeof value === 'object') {
+                builtString += `"${key}"` + ':' + stringify(value) + '}';
             } else {
-                builtString += `"${key}":${arg[key]},`;
+                builtString += `"${key}"` + ':' + value + ',';
             }
         }
 
+        // remove the trailing comma
         return builtString.slice(0, -1) + '}';
     }
 
@@ -35,6 +35,7 @@ function stringify(arg) {
             }
         }
 
+        // remove the trailing comma
         return builtString.slice(0, -1) + ']';
     }
 }
