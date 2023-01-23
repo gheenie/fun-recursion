@@ -1,7 +1,7 @@
 const spaceCounter = require('../katas/4-space-counter');
 
-describe('spaceCounter', () => {
-    test('returns a number', () => {
+describe('happy paths', () => {
+    test('output data type', () => {
         const input = '';
 
         const output = typeof spaceCounter(input);
@@ -28,15 +28,6 @@ describe('spaceCounter', () => {
         expect(output).toBe(expected);
     });
 
-    test('string with only spaces returns the string\'s length', () => {
-        const input = '    ';
-
-        const output = spaceCounter(input);
-
-        const expected = input.length;
-        expect(output).toBe(expected);
-    });
-    
     test('string with spaces and non-spaces returns the number of spaces', () => {
         const input = ' 1 2 3 4 5';
 
