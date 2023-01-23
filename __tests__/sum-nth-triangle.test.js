@@ -1,10 +1,10 @@
-const sumAll = require('../katas/sum-all');
+const sumNthTriangle = require('../katas/2-sum-nth-triangle');
 
 describe('', () => {
     test('return type of output', () => {
         const input = 4;
 
-        const output = sumAll(input);
+        const output = sumNthTriangle(input);
 
         const expected = 'number';
         expect(typeof output).toBe(expected);
@@ -13,7 +13,7 @@ describe('', () => {
     test('final value of output, when input is 1', () => {
         const input = 1;
 
-        const output = sumAll(input);
+        const output = sumNthTriangle(input);
 
         const expected = 1;
         expect(output).toBe(expected);
@@ -22,7 +22,7 @@ describe('', () => {
     test('final value of output, when input is 4', () => {
         const input = 4;
 
-        const output = sumAll(input);
+        const output = sumNthTriangle(input);
 
         const expected = 10;
         expect(output).toBe(expected);
