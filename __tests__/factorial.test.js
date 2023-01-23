@@ -1,4 +1,4 @@
-const factorial = require('../katas/factorial');
+const factorial = require('../katas/1-factorial');
 
 describe('', () => {
     test('return type of output', () => {
