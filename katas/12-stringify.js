@@ -12,7 +12,7 @@ function stringify(arg) {
             }
         }
 
-        // remove the trailing comma
+        // Last char will be a trailing comma
         return builtString.slice(0, -1) + '}';
     }
 
@@ -35,7 +35,7 @@ function stringify(arg) {
             }
         } );
 
-        // remove the trailing comma
+        // Last char will be a trailing comma
         return builtString.slice(0, -1) + ']';
     }
 }
