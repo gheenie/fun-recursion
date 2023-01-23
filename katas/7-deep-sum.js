@@ -1,9 +1,9 @@
-function sumNestedInts(arr) {
+function deepSum(arr) {
     let sum = 0;
 
     for (let i = 0; i < arr.length; i++) {
         if ( Array.isArray(arr[i]) ) {
-            sum += sumNestedInts(arr[i]);
+            sum += deepSum(arr[i]);
         } else {
             sum += arr[i];
         }
@@ -12,4 +12,4 @@ function sumNestedInts(arr) {
     return sum;
 }
 
-module.exports = sumNestedInts;
+module.exports = deepSum;
