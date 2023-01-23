@@ -1,7 +1,7 @@
 function stringify(arg) {
-    if (Object.keys(arg).length === 0) return '{}';
-
     if (typeof arg === 'object' && !Array.isArray(arg)) {
+        if (Object.keys(arg).length === 0) return '{}';
+
         let builtString = '{';
 
         for (const key in arg) {
@@ -17,18 +17,25 @@ function stringify(arg) {
     }
 
     if ( Array.isArray(arg) ) {
+        if (arg.length === 0) return '[]';
+
         let builtString = '[';
 
         for (let i = 0; i < arg.length; i++) {
             if ( Array.isArray(arg[i]) ) {
-                builtString += `"${arg[i]}",`
-                builtString += stringify(arg[key]) + ']';
+                builtString += stringify(arg[i]) + ']';
             } else {
-                builtString += `"${key}":${arg[key]},`;
+                console.log(typeof arg[i]);
+                if (typeof arg[i] === 'string') {
+                    builtString += `"${arg[i]}",`;
+                } else {
+                    builtString += `${arg[i]},`;
+                }
+                
             }
         }
 
-        return builtString.slice(0, -1) + '}';
+        return builtString.slice(0, -1) + ']';
     }
 }
 
