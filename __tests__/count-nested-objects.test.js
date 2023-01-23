@@ -20,7 +20,13 @@ describe('countNestedObjects', () => {
     });
 
     test('nested elements', () => {
-        const input = { a: { b: { c: 1 } } };
+        const input = { 
+            a: { 
+                b: { 
+                    c: 1 
+                } 
+            } 
+        };
 
         const output = countNestedObjects(input);
 
@@ -29,7 +35,16 @@ describe('countNestedObjects', () => {
     });
     
     test('nested elements branching from 1st object', () => {
-        const input = { a: { b: { c: 1 } } , d : {e : 2}};
+        const input = { 
+            a: { 
+                b: { 
+                    c: 1 
+                } 
+            }, 
+            d: { 
+                e: 2 
+            } 
+        };
 
         const output = countNestedObjects(input);
 
