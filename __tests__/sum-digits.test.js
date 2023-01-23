@@ -4,9 +4,9 @@ describe('happy paths', () => {
     test('returns a number', () => {
         const input = 0;
 
-        const output = sumDigits(input);
+        const output = typeof sumDigits(input);
 
-        const expected = typeof 'number';
+        const expected = 'number';
         expect(output).toBe(expected);
     });
 

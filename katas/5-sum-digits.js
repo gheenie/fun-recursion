@@ -1,12 +1,13 @@
 function sumDigits(num) {
     if (num < 10) {
-        return num
+        return num;
     }
-    const numArr = num.toString().split('')
-    const total = numArr.reduce((sumTotal, number) => {
-        return parseInt(number) + sumTotal
-    }, 0)
-    return sumDigits(total)
+
+    const digits = num.toString().split('');
+
+    const subtotal = digits.reduce((sum, digit) => sum + parseInt(digit), 0);
+
+    return sumDigits(subtotal);
 }
 
 module.exports = sumDigits;
