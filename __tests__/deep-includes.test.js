@@ -1,14 +1,14 @@
-const deepIncludes = require('../katas/deep-includes');
+const deepIncludes = require('../katas/8-deep-includes');
 
 describe('', () => {
     test('type of output', () => {
         const input1 = [1, 2];
         const input2 = 3;
 
-        const output = deepIncludes(input1, input2);
+        const output = typeof deepIncludes(input1, input2);
 
         const expected = 'boolean';
-        expect(typeof output).toBe(expected);
+        expect(output).toBe(expected);
     });
 
     test('no nested elements; returns false', () => {
