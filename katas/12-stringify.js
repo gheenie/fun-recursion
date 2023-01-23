@@ -21,19 +21,19 @@ function stringify(arg) {
 
         let builtString = '[';
 
-        for (let i = 0; i < arg.length; i++) {
-            if ( Array.isArray(arg[i]) ) {
-                builtString += stringify(arg[i]) + ']';
+        arg.forEach( (item) => {
+            if ( Array.isArray(item) ) {
+                builtString += stringify(item) + ']';
             } else {
-                console.log(typeof arg[i]);
-                if (typeof arg[i] === 'string') {
-                    builtString += `"${arg[i]}",`;
+                if (typeof item === 'string') {
+                    builtString += `"${item}"`;
                 } else {
-                    builtString += `${arg[i]},`;
+                    builtString += item;
                 }
                 
+                builtString += ',';
             }
-        }
+        } );
 
         // remove the trailing comma
         return builtString.slice(0, -1) + ']';
