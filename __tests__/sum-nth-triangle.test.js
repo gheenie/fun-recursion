@@ -4,13 +4,13 @@ describe('', () => {
     test('return type of output', () => {
         const input = 4;
 
-        const output = sumNthTriangle(input);
+        const output = typeof sumNthTriangle(input);
 
         const expected = 'number';
-        expect(typeof output).toBe(expected);
+        expect(output).toBe(expected);
     });
 
-    test('final value of output, when input is 1', () => {
+    test('special input 1', () => {
         const input = 1;
 
         const output = sumNthTriangle(input);
@@ -19,7 +19,7 @@ describe('', () => {
         expect(output).toBe(expected);
     });
 
-    test('final value of output, when input is 4', () => {
+    test('input above 1', () => {
         const input = 4;
 
         const output = sumNthTriangle(input);
