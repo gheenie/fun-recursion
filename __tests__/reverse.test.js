@@ -1,13 +1,13 @@
-const reverse = require("../katas/reverse");
+const reverse = require("../katas/3-reverse");
 
 describe('', () => {
     test('return type of output', () => {
         const input = 'example';
 
-        const output = reverse(input);
+        const output = typeof reverse(input);
 
         const expected = 'string';
-        expect(typeof output).toBe(expected);
+        expect(output).toBe(expected);
     });
 
     test('single char string', () => {
