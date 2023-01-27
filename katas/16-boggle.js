@@ -1,4 +1,4 @@
-function boggle(board, matchee, matchIndex = 0, matchedPositions, validNextPositions) {
+function boggle(board, matchee, matchIndex = 0, matchedPositions, nextPositions, collectionOfNextPositions = []) {
     // The path is like a breadth-first search.
 
     function getValidNextPositions(currentPosition, maxRows, maxCols, matchedPositions) {
@@ -34,6 +34,8 @@ function boggle(board, matchee, matchIndex = 0, matchedPositions, validNextPosit
     const letterToMatch = matchee[matchIndex];
 
     if (matchIndex === 0) {
+        // Get first-level matches.
+        
         const firstRunMatchedPositions = [];
 
         for (let row = 0; row < maxRows; row++) {
@@ -44,44 +46,57 @@ function boggle(board, matchee, matchIndex = 0, matchedPositions, validNextPosit
             }
         }
         
+        // Easy logic for no matches and if only one match required.
+
         if (firstRunMatchedPositions.length === 0) return false;
 
         if (matchee.length === 1) return true;
 
-        matchIndex++;
+        // Logic of the 4 params.
 
+        matchIndex++;
+        
         const isFullyMatched = firstRunMatchedPositions.map( (firstRunMatchedPosition) => {
             const firstRunMatchedPositionInArray = [];
             firstRunMatchedPositionInArray.push(firstRunMatchedPosition);
 
-            validNextPositions = getValidNextPositions(firstRunMatchedPosition, maxRows, maxCols, firstRunMatchedPositionInArray);
+            nextPositions = getValidNextPositions(firstRunMatchedPosition, maxRows, maxCols, firstRunMatchedPositionInArray);
 
-            return boggle(board, matchee, matchIndex, firstRunMatchedPositionInArray, validNextPositions);
+            collectionOfNextPositions.push(nextPositions);
+
+            return boggle(board, matchee, matchIndex, firstRunMatchedPositionInArray, nextPositions, collectionOfNextPositions);
         } );
         
+        // At least one branch from first-level matches get a complete match.
+
         if ( isFullyMatched.includes(true) ) return true;
 
         return false;
     }
 
     if (matchIndex > 0) {
-        const row = validNextPositions[0][0];
-        const col = validNextPositions[0][1];
+        const currentPosition = nextPositions.shift();
 
-        if (board[row][col] === letterToMatch) {
-            matchedPositions.push(validNextPositions[0]);
+        if (board[currentPosition[0]][currentPosition[1]] === letterToMatch) {
+            matchedPositions.push(currentPosition);
 
             if (matchee.length === matchedPositions.length) return true;
     
             matchIndex++;
-            validNextPositions = getValidNextPositions(validNextPositions[0], maxRows, maxCols, matchedPositions);
-            return boggle(board, matchee, matchIndex, matchedPositions, validNextPositions);
+            const deeperNextPositions = getValidNextPositions(currentPosition, maxRows, maxCols, matchedPositions);
+            collectionOfNextPositions.push( deeperNextPositions );
+            return boggle(board, matchee, matchIndex, matchedPositions, deeperNextPositions, collectionOfNextPositions);
         } else {
-            validNextPositions.shift();
+            if (nextPositions.length === 0) {
+                collectionOfNextPositions.pop();
 
-            if (validNextPositions.length === 0) return false;
-            
-            return boggle(board, matchee, matchIndex, matchedPositions, validNextPositions);
+                if (collectionOfNextPositions.length === 0) return false;
+
+                matchedPositions.pop();
+                matchIndex--;
+                return boggle(board, matchee, matchIndex, matchedPositions, collectionOfNextPositions[collectionOfNextPositions.length - 1], collectionOfNextPositions);
+            };
+            return boggle(board, matchee, matchIndex, matchedPositions, nextPositions, collectionOfNextPositions);
         }
     }
 }
