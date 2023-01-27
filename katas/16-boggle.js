@@ -1,5 +1,6 @@
-function boggle(board, matchee, matchIndex = 0, matchedPositions, nextPositions, collectionOfNextPositions = []) {
-    // The path is like a breadth-first search.
+function boggle(board, matchee, matchIndex = 0, matchedPositions, nextPositions, collectionOfNextPositions) {
+    // Does a first-level search first. The path is like a depth-first search, but has a collectionOfNextPositions
+    // that will help to backtrack.
 
     function getValidNextPositions(currentPosition, maxRows, maxCols, matchedPositions) {
         const [row, col] = currentPosition;
@@ -55,13 +56,14 @@ function boggle(board, matchee, matchIndex = 0, matchedPositions, nextPositions,
         // Logic of the 4 params.
 
         matchIndex++;
-        
+
         const isFullyMatched = firstRunMatchedPositions.map( (firstRunMatchedPosition) => {
             const firstRunMatchedPositionInArray = [];
             firstRunMatchedPositionInArray.push(firstRunMatchedPosition);
 
             nextPositions = getValidNextPositions(firstRunMatchedPosition, maxRows, maxCols, firstRunMatchedPositionInArray);
 
+            collectionOfNextPositions = [];
             collectionOfNextPositions.push(nextPositions);
 
             return boggle(board, matchee, matchIndex, firstRunMatchedPositionInArray, nextPositions, collectionOfNextPositions);
@@ -78,24 +80,38 @@ function boggle(board, matchee, matchIndex = 0, matchedPositions, nextPositions,
         const currentPosition = nextPositions.shift();
 
         if (board[currentPosition[0]][currentPosition[1]] === letterToMatch) {
+            // The start of the 4 params.
             matchedPositions.push(currentPosition);
 
+            // This halfway traversing of branch is allowed.
             if (matchee.length === matchedPositions.length) return true;
+
+            // Remaining logic of the 4 params.
     
             matchIndex++;
+
             const deeperNextPositions = getValidNextPositions(currentPosition, maxRows, maxCols, matchedPositions);
+
             collectionOfNextPositions.push( deeperNextPositions );
+
             return boggle(board, matchee, matchIndex, matchedPositions, deeperNextPositions, collectionOfNextPositions);
         } else {
             if (nextPositions.length === 0) {
+                // Start to backtrack using the 4 params.
                 collectionOfNextPositions.pop();
 
+                // The whole branch from first-level has failed. Cannot return earlier than this ie halfway traversing the branch.
                 if (collectionOfNextPositions.length === 0) return false;
 
-                matchedPositions.pop();
+                // To complete the backtracking logic.
                 matchIndex--;
+
+                matchedPositions.pop();
+
                 return boggle(board, matchee, matchIndex, matchedPositions, collectionOfNextPositions[collectionOfNextPositions.length - 1], collectionOfNextPositions);
             };
+
+            // The recursion will already include the change in nextPositions from the very early shift().
             return boggle(board, matchee, matchIndex, matchedPositions, nextPositions, collectionOfNextPositions);
         }
     }

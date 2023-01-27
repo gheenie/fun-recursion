@@ -29,9 +29,9 @@ describe('', () => {
     });
 });
 
-describe.only('', () => {
+describe('', () => {
     const board = [
-        ["e", "a", "y", "a"],
+        ["d", "a", "y", "a"],
         ["n", "l", "e", "c"],
         ["i", "a", "i", "s"],
         ["s", "r", "o", "r"],
