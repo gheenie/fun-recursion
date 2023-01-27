@@ -28,3 +28,28 @@ describe('', () => {
         expect( boggle(board, "rscareioybailnea") ).toBe(true); // true
     });
 });
+
+describe.only('', () => {
+    const board = [
+        ["e", "a", "y", "a"],
+        ["n", "l", "e", "c"],
+        ["i", "a", "i", "s"],
+        ["s", "r", "o", "r"],
+    ];
+
+    test('letter not in board', () => {
+        expect( boggle(board, "z") ).toBe(false);
+    });
+
+    test('one letter match, roughly mid of board', () => {
+        expect( boggle(board, "l") ).toBe(true);
+    });
+    
+    test('two letter fail', () => {
+        expect( boggle(board, "lr") ).toBe(false);
+    });
+
+    test('second branch of branching out', () => {
+        expect( boggle(board, "ears") ).toBe(true);
+    });
+});
