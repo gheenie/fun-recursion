@@ -1,7 +1,8 @@
 function boggle(board, matchee, matchIndex = 0, matchedPositions, validNextPositions) {
+    // The path is like a breadth-first search.
+
     function getValidNextPositions(currentPosition, maxRows, maxCols, matchedPositions) {
         const [row, col] = currentPosition;
-        
         const possibleNextPositions = [
             [row - 1, col - 1], 
             [row - 1, col], 
@@ -13,7 +14,7 @@ function boggle(board, matchee, matchIndex = 0, matchedPositions, validNextPosit
             [row + 1, col + 1]
         ];
 
-        // Filter out out-of-bounds positions.
+        // Filter out out-of-bounds and previously matched positions.
         return possibleNextPositions.filter( (position) => {
             if (
                 position[0] < 0 || 
@@ -74,8 +75,7 @@ function boggle(board, matchee, matchIndex = 0, matchedPositions, validNextPosit
     
             matchIndex++;
             validNextPositions = getValidNextPositions(validNextPositions[0], maxRows, maxCols, matchedPositions);
-
-            return boggle(board, matchee, matchIndex, matchedPositions, validNextPositions, validNextPositions[validNextPositions.length - 1])
+            return boggle(board, matchee, matchIndex, matchedPositions, validNextPositions);
         } else {
             validNextPositions.shift();
 

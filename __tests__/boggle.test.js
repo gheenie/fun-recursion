@@ -20,11 +20,11 @@ describe('', () => {
         expect( boggle(board, "lr") ).toBe(true);
     });
 
-    test.only('other tests', () => {
+    test('other tests', () => {
         expect( boggle(board, "ear") ).toBe(true); // true
-        /*expect( boggle(board, "ears") ).toBe(false); // false
+        expect( boggle(board, "ears") ).toBe(false); // false
         expect( boggle(board, "rio") ).toBe(true); // true
         expect( boggle(board, "cereal") ).toBe(false); // false
-        expect( boggle(board, "rscareioybailnea") ).toBe(true); // true*/
+        expect( boggle(board, "rscareioybailnea") ).toBe(true); // true
     });
 });
